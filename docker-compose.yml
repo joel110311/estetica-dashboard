@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Frontend - React con Nginx
+  estetica-frontend:
+    build: .
+    container_name: estetica-frontend
+    restart: always
+    depends_on:
+      - estetica-backend
+    networks:
+      - SociosNet
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.estetica.rule=Host(`estetica.logicapp.net`)"
+        - "traefik.http.routers.estetica.entrypoints=websecure"
+        - "traefik.http.routers.estetica.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.estetica.loadbalancer.server.port=80"
+        - "traefik.docker.network=SociosNet"
+
+  # Backend - PocketBase
+  estetica-backend:
+    image: ghcr.io/pocketbase/pocketbase:latest
+    container_name: estetica-backend
+    restart: always
+    command: /pb/pocketbase serve --http=0.0.0.0:8090
+    volumes:
+      - pb_data:/pb/pb_data
+    networks:
+      - SociosNet
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.estetica-api.rule=Host(`api-estetica.logicapp.net`)"
+        - "traefik.http.routers.estetica-api.entrypoints=websecure"
+        - "traefik.http.routers.estetica-api.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.estetica-api.loadbalancer.server.port=8090"
+        - "traefik.docker.network=SociosNet"
+
+volumes:
+  pb_data:
+
+networks:
+  SociosNet:
+    external: true

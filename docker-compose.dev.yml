@@ -1,0 +1,18 @@
+version: '3.8'
+
+# Docker Compose para desarrollo local
+# Ejecutar: docker-compose -f docker-compose.dev.yml up
+
+services:
+  # PocketBase - Backend con base de datos SQLite
+  pocketbase:
+    image: ghcr.io/pocketbase/pocketbase:latest
+    container_name: estetica-pocketbase
+    restart: unless-stopped
+    command: /pb/pocketbase serve --http=0.0.0.0:8090
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./pb_data:/pb/pb_data
+
+# Nota: El frontend se ejecuta con 'npm run dev' para desarrollo
