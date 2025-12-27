@@ -220,7 +220,7 @@ function CreateAppointment() {
                     required
                 >
                     <option value="">Seleccionar especialista</option>
-                    {staffList.map(staff => (
+                    {(Array.isArray(staffList) ? staffList : []).map(staff => (
                         <option key={staff} value={staff}>{staff}</option>
                     ))}
                 </select>
@@ -243,7 +243,7 @@ function CreateAppointment() {
                     <option value="">
                         {formData.staff ? 'Seleccionar servicio' : 'Primero selecciona un especialista'}
                     </option>
-                    {serviciosDisponibles.map(servicio => (
+                    {(Array.isArray(serviciosDisponibles) ? serviciosDisponibles : []).map(servicio => (
                         <option key={servicio.id || servicio.nombre} value={servicio.nombre}>
                             {servicio.nombre} - {currencySymbol}{servicio.precio?.toLocaleString()}
                         </option>
