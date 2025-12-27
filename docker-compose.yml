@@ -2,7 +2,7 @@ version: '3.8'
 services:
   # Frontend - Build desde el código
   estetica-frontend:
-    build: .
+    image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
       - SociosNet
     deploy:
