@@ -1,16 +1,16 @@
 version: '3.8'
 
 services:
-  # Frontend - React con Nginx
+  # Frontend - Ahora descargará la imagen creada por GitHub
   estetica-frontend:
-    build: .
-    container_name: estetica-frontend
-    restart: always
-    depends_on:
-      - estetica-backend
+    # Usamos tu usuario y repo para la imagen
+    image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
       - SociosNet
     deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.estetica.rule=Host(`estetica.logicapp.net`)"
@@ -22,14 +22,15 @@ services:
   # Backend - PocketBase
   estetica-backend:
     image: ghcr.io/pocketbase/pocketbase:latest
-    container_name: estetica-backend
-    restart: always
     command: /pb/pocketbase serve --http=0.0.0.0:8090
     volumes:
       - pb_data:/pb/pb_data
     networks:
       - SociosNet
     deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.estetica-api.rule=Host(`api-estetica.logicapp.net`)"
