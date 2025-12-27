@@ -1,13 +1,11 @@
 version: '3.8'
 
 services:
-  # Frontend - React
+  # Frontend (No cambiamos nada, este ya funciona)
   estetica-frontend:
-    # CAMBIO OBLIGATORIO 1: Usamos la imagen ya construida (Swarm no acepta 'build')
     image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
       - SociosNet
-    # Configuración de despliegue para Swarm
     deploy:
       replicas: 1
       restart_policy:
@@ -22,11 +20,12 @@ services:
 
   # Backend - PocketBase
   estetica-backend:
-    # CAMBIO OBLIGATORIO 2: Usamos esta imagen porque la original de Antigravity no existe
     image: muchobien/pocketbase:latest
-    # Eliminamos la línea 'command' para dejar que la imagen arranque sola correctamente
+    container_name: estetica-backend
+    # CORRECCIÓN 1: Quitamos "/pb/" del inicio. El comando correcto es directo:
+    command: pocketbase serve --http=0.0.0.0:8090
     volumes:
-      # Ajustamos la ruta interna a donde esta imagen guarda los datos realmente (/pb_data)
+      # CORRECCIÓN 2: Esta imagen guarda los datos en /pb_data (sin /pb al inicio)
       - pb_data:/pb_data
     networks:
       - SociosNet
