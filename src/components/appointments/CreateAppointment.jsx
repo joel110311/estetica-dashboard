@@ -23,8 +23,15 @@ function CreateAppointment() {
 
     // Load staff and services on mount
     useEffect(() => {
-        setStaffList(getConfigStaff())
-        setAllServices(getConfigServices())
+        async function loadConfig() {
+            const [staff, services] = await Promise.all([
+                getConfigStaff(),
+                getConfigServices()
+            ])
+            setStaffList(Array.isArray(staff) ? staff : [])
+            setAllServices(Array.isArray(services) ? services : [])
+        }
+        loadConfig()
     }, [])
 
     // Update available services when staff changes
