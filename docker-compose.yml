@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Frontend (No cambiamos nada, este ya funciona)
+  # Frontend (Tu web en React - Ya funciona)
   estetica-frontend:
     image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
@@ -18,14 +18,12 @@ services:
         - "traefik.http.services.estetica.loadbalancer.server.port=80"
         - "traefik.docker.network=SociosNet"
 
-  # Backend - PocketBase
+  # Backend (PocketBase - Configuración corregida)
   estetica-backend:
     image: muchobien/pocketbase:latest
-    container_name: estetica-backend
-    # CORRECCIÓN 1: Quitamos "/pb/" del inicio. El comando correcto es directo:
-    command: pocketbase serve --http=0.0.0.0:8090
+    # ¡IMPORTANTE! NO AGREGUES 'command'. Deja que la imagen arranque sola.
     volumes:
-      # CORRECCIÓN 2: Esta imagen guarda los datos en /pb_data (sin /pb al inicio)
+      # Esta imagen guarda los datos en la raíz /pb_data
       - pb_data:/pb_data
     networks:
       - SociosNet
