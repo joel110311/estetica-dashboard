@@ -1,6 +1,7 @@
 version: '3.8'
+
 services:
-  # Frontend - Build desde el código
+  # Frontend - (Está perfecto, no lo tocamos)
   estetica-frontend:
     image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
@@ -16,11 +17,14 @@ services:
         - "traefik.http.routers.estetica.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.estetica.loadbalancer.server.port=80"
         - "traefik.docker.network=SociosNet"
-# Backend - PocketBase
+
+  # Backend - PocketBase
   estetica-backend:
     image: spectado/pocketbase:latest
     volumes:
-      - pb_data:/pb/pb_data
+      # CORRECCIÓN AQUÍ: Quitamos el "/pb" extra del inicio.
+      # La imagen spectado guarda todo en la raíz /pb_data
+      - pb_data:/pb_data
     networks:
       - SociosNet
     deploy:
@@ -32,10 +36,13 @@ services:
         - "traefik.http.routers.estetica-api.rule=Host(`api-estetica.logicapp.net`)"
         - "traefik.http.routers.estetica-api.entrypoints=websecure"
         - "traefik.http.routers.estetica-api.tls.certresolver=letsencryptresolver"
+        # Puerto 80 es correcto para esta imagen
         - "traefik.http.services.estetica-api.loadbalancer.server.port=80"
         - "traefik.docker.network=SociosNet"
+
 volumes:
   pb_data:
+
 networks:
   SociosNet:
     external: true
