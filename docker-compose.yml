@@ -1,9 +1,8 @@
 version: '3.8'
-
 services:
-  # Frontend (Tu web en React - Ya funciona)
+  # Frontend - Build desde el código
   estetica-frontend:
-    image: ghcr.io/joel110311/estetica-dashboard:latest
+    build: .
     networks:
       - SociosNet
     deploy:
@@ -17,13 +16,11 @@ services:
         - "traefik.http.routers.estetica.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.estetica.loadbalancer.server.port=80"
         - "traefik.docker.network=SociosNet"
-
-  # Backend (PocketBase - Configuración corregida)
+  # Backend - PocketBase oficial
   estetica-backend:
-    image: muchobien/pocketbase:latest
-    # ¡IMPORTANTE! NO AGREGUES 'command'. Deja que la imagen arranque sola.
+    image: ghcr.io/pocketbase/pocketbase:latest
+    command: /pocketbase serve --http=0.0.0.0:8090
     volumes:
-      # Esta imagen guarda los datos en la raíz /pb_data
       - pb_data:/pb_data
     networks:
       - SociosNet
@@ -38,10 +35,8 @@ services:
         - "traefik.http.routers.estetica-api.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.estetica-api.loadbalancer.server.port=8090"
         - "traefik.docker.network=SociosNet"
-
 volumes:
   pb_data:
-
 networks:
   SociosNet:
     external: true
