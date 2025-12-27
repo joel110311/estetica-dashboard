@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   estetica-frontend:
-    # Mantenemos esto igual, ya vimos que funciona perfecto
+    # Mantenemos tu frontend que ya funciona
     image: ghcr.io/joel110311/estetica-dashboard:latest
     networks:
       - SociosNet
@@ -19,12 +19,11 @@ services:
         - "traefik.docker.network=SociosNet"
 
   estetica-backend:
-    # CAMBIO IMPORTANTE: Usamos esta imagen que es 100% fiable
     image: muchobien/pocketbase:latest
-    # El comando interno cambia ligeramente para esta imagen
-    command: /pb/pocketbase serve --http=0.0.0.0:8090
+    # BORRAMOS la línea 'command'. La imagen ya sabe cómo arrancar.
     volumes:
-      - pb_data:/pb/pb_data
+      # CORRECCIÓN: Esta imagen guarda los datos en /pb_data (no en /pb/pb_data)
+      - pb_data:/pb_data
     networks:
       - SociosNet
     deploy:
@@ -33,7 +32,6 @@ services:
         condition: on-failure
       labels:
         - "traefik.enable=true"
-        # Asegúrate de haber creado el subdominio api-estetica en tus DNS
         - "traefik.http.routers.estetica-api.rule=Host(`api-estetica.logicapp.net`)"
         - "traefik.http.routers.estetica-api.entrypoints=websecure"
         - "traefik.http.routers.estetica-api.tls.certresolver=letsencryptresolver"
