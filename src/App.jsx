@@ -55,8 +55,8 @@ function App() {
         return (
             <SetupWizard
                 onComplete={() => {
-                    setNeedsSetup(false)
-                    initializeConfig()
+                    // Reload to properly initialize auth and config
+                    window.location.href = '/login'
                 }}
             />
         )

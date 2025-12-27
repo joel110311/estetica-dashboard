@@ -1,0 +1,234 @@
+[
+    {
+        "id": "_pb_users_auth_",
+        "name": "users",
+        "type": "auth",
+        "system": false,
+        "schema": [
+            {
+                "id": "users_name",
+                "name": "name",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 200,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "users_role",
+                "name": "role",
+                "type": "select",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "values": [
+                        "operador",
+                        "gerente",
+                        "superadmin"
+                    ]
+                }
+            }
+        ],
+        "listRule": "@request.auth.id != ''",
+        "viewRule": "@request.auth.id != ''",
+        "createRule": "",
+        "updateRule": "@request.auth.id != ''",
+        "deleteRule": "@request.auth.role = 'superadmin'",
+        "options": {
+            "allowEmailAuth": true,
+            "allowOAuth2Auth": false,
+            "allowUsernameAuth": false,
+            "minPasswordLength": 8,
+            "requireEmail": true
+        }
+    },
+    {
+        "id": "pbc_config",
+        "name": "config",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "config_key",
+                "name": "key",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": 1,
+                    "max": 100,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "config_value",
+                "name": "value",
+                "type": "json",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "maxSize": 2000000
+                }
+            }
+        ],
+        "listRule": "@request.auth.id != ''",
+        "viewRule": "@request.auth.id != ''",
+        "createRule": "@request.auth.id != ''",
+        "updateRule": "@request.auth.id != ''",
+        "deleteRule": "@request.auth.role = 'superadmin'"
+    },
+    {
+        "id": "pbc_appointments",
+        "name": "appointments",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "apt_fecha",
+                "name": "fecha",
+                "type": "date",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": "",
+                    "max": ""
+                }
+            },
+            {
+                "id": "apt_hora",
+                "name": "hora",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 10,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "apt_cliente",
+                "name": "cliente",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 200,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "apt_telefono",
+                "name": "telefono",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 50,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "apt_servicio",
+                "name": "servicio",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 200,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "apt_staff",
+                "name": "staff",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 200,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "apt_precio",
+                "name": "precio",
+                "type": "number",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "id": "apt_deposito",
+                "name": "deposito",
+                "type": "number",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "id": "apt_estado",
+                "name": "estado",
+                "type": "select",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "values": [
+                        "pendiente",
+                        "confirmada",
+                        "completada",
+                        "cancelada"
+                    ]
+                }
+            },
+            {
+                "id": "apt_notas",
+                "name": "notas",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 1000,
+                    "pattern": ""
+                }
+            }
+        ],
+        "listRule": "@request.auth.id != ''",
+        "viewRule": "@request.auth.id != ''",
+        "createRule": "@request.auth.id != ''",
+        "updateRule": "@request.auth.id != ''",
+        "deleteRule": "@request.auth.id != ''"
+    }
+]

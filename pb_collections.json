@@ -1,0 +1,88 @@
+[
+    {
+        "id": "_pb_users_auth_",
+        "name": "users",
+        "type": "auth",
+        "system": false,
+        "schema": [
+            {
+                "id": "users_name",
+                "name": "name",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": 200,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "users_role",
+                "name": "role",
+                "type": "select",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "values": [
+                        "operador",
+                        "gerente",
+                        "superadmin"
+                    ]
+                }
+            }
+        ],
+        "listRule": "@request.auth.id != ''",
+        "viewRule": "@request.auth.id != ''",
+        "createRule": "",
+        "updateRule": "@request.auth.id != ''",
+        "deleteRule": "@request.auth.role = 'superadmin'",
+        "options": {
+            "allowEmailAuth": true,
+            "allowOAuth2Auth": false,
+            "allowUsernameAuth": false,
+            "minPasswordLength": 8,
+            "requireEmail": true
+        }
+    },
+    {
+        "id": "config_collection",
+        "name": "config",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "field_key",
+                "name": "key",
+                "type": "text",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": 1,
+                    "max": 100,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "field_value",
+                "name": "value",
+                "type": "json",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "maxSize": 2000000
+                }
+            }
+        ],
+        "listRule": "@request.auth.id != ''",
+        "viewRule": "@request.auth.id != ''",
+        "createRule": "@request.auth.id != ''",
+        "updateRule": "@request.auth.id != ''",
+        "deleteRule": "@request.auth.role = 'superadmin'"
+    }
+]
