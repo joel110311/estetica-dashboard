@@ -19,7 +19,7 @@ services:
   # Backend - PocketBase oficial
   estetica-backend:
     image: ghcr.io/pocketbase/pocketbase:latest
-    command: /pocketbase serve --http=0.0.0.0:8090
+    command: /pocketbase serve --http=0.0.0.0:8090 --dir=/pb_data
     volumes:
       - pb_data:/pb_data
     networks:
