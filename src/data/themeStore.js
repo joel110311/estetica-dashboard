@@ -93,7 +93,7 @@ export const MODES = ['light', 'dark', 'system']
 
 // Get current theme
 export function getConfigTheme() {
-    return localStorage.getItem('config_theme') || 'estetica'
+    return localStorage.getItem('config_theme') || 'premium'
 }
 
 export function saveConfigTheme(theme) {
@@ -113,7 +113,7 @@ export function saveConfigMode(mode) {
 
 // Apply theme colors - Force update CSS immediately
 export function applyTheme(themeId) {
-    const theme = THEMES[themeId] || THEMES.estetica
+    const theme = THEMES[themeId] || THEMES.premium
     const root = document.documentElement
 
     // Apply each color as CSS variable
