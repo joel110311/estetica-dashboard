@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Building2, User, Lock, Palette, ArrowRight, Check, Loader2 } from 'lucide-react'
+import { Building2, User, Lock, ArrowRight, Check, Loader2 } from 'lucide-react'
 import pb from '../lib/pocketbase'
 
 const BUSINESS_TYPES = [
@@ -29,14 +29,7 @@ function SetupWizard({ onComplete }) {
         primaryColor: 'teal',
     })
 
-    const colors = [
-        { id: 'teal', name: 'Verde Azulado', class: 'bg-teal-500' },
-        { id: 'pink', name: 'Rosa', class: 'bg-pink-500' },
-        { id: 'purple', name: 'Morado', class: 'bg-purple-500' },
-        { id: 'blue', name: 'Azul', class: 'bg-blue-500' },
-        { id: 'orange', name: 'Naranja', class: 'bg-orange-500' },
-        { id: 'red', name: 'Rojo', class: 'bg-red-500' },
-    ]
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -178,8 +171,8 @@ function SetupWizard({ onComplete }) {
                     {[1, 2, 3].map((s) => (
                         <div key={s} className="flex items-center">
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${s < step ? 'bg-teal-500 text-white' :
-                                    s === step ? 'bg-teal-500 text-white ring-4 ring-teal-500/30' :
-                                        'bg-slate-700 text-slate-400'
+                                s === step ? 'bg-teal-500 text-white ring-4 ring-teal-500/30' :
+                                    'bg-slate-700 text-slate-400'
                                 }`}>
                                 {s < step ? <Check className="w-4 h-4" /> : s}
                             </div>
@@ -223,8 +216,8 @@ function SetupWizard({ onComplete }) {
                                             type="button"
                                             onClick={() => setFormData({ ...formData, businessType: type.id })}
                                             className={`p-3 rounded-xl border-2 transition-all ${formData.businessType === type.id
-                                                    ? 'border-teal-500 bg-teal-500/20'
-                                                    : 'border-slate-600 hover:border-slate-500'
+                                                ? 'border-teal-500 bg-teal-500/20'
+                                                : 'border-slate-600 hover:border-slate-500'
                                                 }`}
                                         >
                                             <div className="text-2xl mb-1">{type.icon}</div>
@@ -305,39 +298,34 @@ function SetupWizard({ onComplete }) {
                         </div>
                     )}
 
-                    {/* Step 3: Theme */}
+                    {/* Step 3: Confirmation */}
                     {step === 3 && (
                         <div className="space-y-6">
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-1">Personalización</h2>
-                                <p className="text-slate-400 text-sm">Elige el color principal de tu sistema</p>
+                                <h2 className="text-xl font-semibold text-white mb-1">¡Todo Listo!</h2>
+                                <p className="text-slate-400 text-sm">Confirma la configuración de tu sistema</p>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-300 mb-3">
-                                    <Palette className="w-4 h-4 inline mr-2" />
-                                    Color Principal
-                                </label>
-                                <div className="grid grid-cols-3 gap-3">
-                                    {colors.map((color) => (
-                                        <button
-                                            key={color.id}
-                                            type="button"
-                                            onClick={() => setFormData({ ...formData, primaryColor: color.id })}
-                                            className={`p-4 rounded-xl border-2 transition-all flex items-center gap-3 ${formData.primaryColor === color.id
-                                                    ? 'border-white bg-white/10'
-                                                    : 'border-slate-600 hover:border-slate-500'
-                                                }`}
-                                        >
-                                            <div className={`w-6 h-6 rounded-full ${color.class}`} />
-                                            <span className="text-sm text-slate-300">{color.name}</span>
-                                        </button>
-                                    ))}
+                            {/* Default Theme Info */}
+                            <div className="bg-gradient-to-r from-lime-500/20 to-green-500/20 border border-lime-500/30 rounded-xl p-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex gap-1">
+                                        <div className="w-4 h-4 rounded-full bg-lime-400" />
+                                        <div className="w-4 h-4 rounded-full bg-lime-500" />
+                                        <div className="w-4 h-4 rounded-full bg-green-600" />
+                                    </div>
+                                    <div>
+                                        <p className="text-lime-300 font-medium text-sm">Tema Premium</p>
+                                        <p className="text-lime-400/70 text-xs">Verde lima fintech - Listo para usar</p>
+                                    </div>
                                 </div>
+                                <p className="text-lime-400/60 text-xs mt-2">
+                                    💡 Puedes cambiar el tema después en Configuración → Diseño
+                                </p>
                             </div>
 
                             {/* Summary */}
-                            <div className="bg-slate-700/50 rounded-xl p-4 mt-6">
+                            <div className="bg-slate-700/50 rounded-xl p-4">
                                 <h3 className="text-sm font-medium text-slate-300 mb-3">Resumen</h3>
                                 <div className="space-y-2 text-sm">
                                     <div className="flex justify-between">
@@ -351,6 +339,10 @@ function SetupWizard({ onComplete }) {
                                     <div className="flex justify-between">
                                         <span className="text-slate-400">Admin:</span>
                                         <span className="text-white">{formData.adminEmail}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="text-slate-400">Tema:</span>
+                                        <span className="text-lime-400">Premium (Verde Lima)</span>
                                     </div>
                                 </div>
                             </div>
