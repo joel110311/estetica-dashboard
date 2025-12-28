@@ -18,6 +18,9 @@ function App() {
     useEffect(() => {
         async function checkSetup() {
             try {
+                // Initialize config cache first
+                await initializeConfig()
+
                 // Try to get business config
                 const config = await pb.collection('config').getFirstListItem('key="business"')
                 if (config?.value?.setupComplete) {

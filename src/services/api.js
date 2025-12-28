@@ -1,8 +1,8 @@
-import { getConfigWebhooks } from '../data/configStore'
+import { getConfigWebhooksSync } from '../data/configStore'
 
 // Get API endpoints from config (allows dynamic configuration)
 function getEndpoints() {
-    const webhooks = getConfigWebhooks()
+    const webhooks = getConfigWebhooksSync()
     return {
         ANALYTICS_API: webhooks.dashboard,
         CALENDAR_API: webhooks.calendar,
