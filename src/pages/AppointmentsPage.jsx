@@ -16,7 +16,7 @@ function AppointmentsPage() {
             {/* Tabs */}
             <div className="bg-white rounded-xl md:rounded-2xl shadow-sm border border-slate-100 mb-4 md:mb-6 overflow-hidden">
                 <div className="flex">
-                    {tabs.map((tab) => {
+                    {(Array.isArray(tabs) ? tabs : []).map((tab) => {
                         const Icon = tab.icon
                         const isActive = activeTab === tab.id
 
@@ -25,8 +25,8 @@ function AppointmentsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-3 md:py-4 px-2 md:px-6 text-sm font-medium transition-all duration-200 ${isActive
-                                        ? 'text-primary-600 border-b-2 border-primary-500 bg-primary-50/50'
-                                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                                    ? 'text-primary-600 border-b-2 border-primary-500 bg-primary-50/50'
+                                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                                     }`}
                             >
                                 <Icon className="w-4 h-4" />

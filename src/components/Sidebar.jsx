@@ -103,7 +103,7 @@ function Sidebar({ navItems, currentPage, onNavigate, isMobile = false, onClose,
                     </p>
                 )}
                 <ul className="space-y-1">
-                    {navItems.map((item) => {
+                    {(Array.isArray(navItems) ? navItems : []).map((item) => {
                         const Icon = item.icon
                         const isActive = currentPage === item.id
 

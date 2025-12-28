@@ -62,7 +62,7 @@ function SettingsPage() {
 
             {/* Section Tabs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-                {sections.map((section) => {
+                {(Array.isArray(sections) ? sections : []).map((section) => {
                     const Icon = section.icon
                     const isActive = activeSection === section.id
 
