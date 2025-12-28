@@ -6,11 +6,13 @@ import Sidebar from './Sidebar'
 import StatsPage from '../pages/StatsPage'
 import AppointmentsPage from '../pages/AppointmentsPage'
 import SettingsPage from '../pages/SettingsPage'
+import pb from '../lib/pocketbase'
 
 function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
+    const [businessName, setBusinessName] = useState('Administración')
     const { hasPermission } = useAuth()
     const location = useLocation()
     const navigate = useNavigate()
@@ -33,6 +35,21 @@ function Dashboard() {
         }
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    // Load business name
+    useEffect(() => {
+        async function loadBusiness() {
+            try {
+                const config = await pb.collection('config').getFirstListItem('key="business"')
+                if (config?.value?.name) {
+                    setBusinessName(config.value.name)
+                }
+            } catch (err) {
+                console.log('Could not load business name')
+            }
+        }
+        loadBusiness()
     }, [])
 
     // Build nav items based on permissions
@@ -72,7 +89,7 @@ function Dashboard() {
                         <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
                             <Scissors className="w-4 h-4 text-white" />
                         </div>
-                        <span className="font-semibold text-slate-800 dark:text-white">Estética Integral</span>
+                        <span className="font-semibold text-slate-800 dark:text-white">{businessName}</span>
                     </div>
                     <div className="w-10" />
                 </header>

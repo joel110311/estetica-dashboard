@@ -172,7 +172,7 @@ function Sidebar({ navItems, currentPage, onNavigate, isMobile = false, onClose,
                 {/* Copyright */}
                 {!collapsed && (
                     <div className="text-center pt-2">
-                        <p className="text-xs text-slate-400 dark:text-slate-600">© 2026 Estética Integral</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-600">© {new Date().getFullYear()} {businessName.line1}</p>
                     </div>
                 )}
             </div>

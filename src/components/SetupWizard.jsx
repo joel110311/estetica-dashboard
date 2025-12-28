@@ -200,7 +200,7 @@ function SetupWizard({ onComplete }) {
                                     name="businessName"
                                     value={formData.businessName}
                                     onChange={handleChange}
-                                    placeholder="Ej: Estética Integral Isabel Grimoldi"
+                                    placeholder="Ej: Peluquería Cervantes"
                                     className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
                                 />
                             </div>

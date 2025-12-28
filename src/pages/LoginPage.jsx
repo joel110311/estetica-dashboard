@@ -143,7 +143,7 @@ function LoginPage() {
 
                 {/* Footer */}
                 <p className="text-center text-slate-500 text-sm mt-6">
-                    © 2026 Estética Integral Isabel Grimoldi
+                    © {new Date().getFullYear()} {businessName.line1}{businessName.line2 ? ` ${businessName.line2}` : ''}
                 </p>
             </div>
         </div>
