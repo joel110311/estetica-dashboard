@@ -29,9 +29,16 @@ function App() {
                     setNeedsSetup(true)
                 }
             } catch (err) {
-                // No business config found = needs setup
-                console.log('No setup found, showing wizard')
-                setNeedsSetup(true)
+                // Only show wizard if config truly doesn't exist (404)
+                // For other errors (network, auth, etc), assume setup is done and go to login
+                if (err?.status === 404) {
+                    console.log('No setup found (404), showing wizard')
+                    setNeedsSetup(true)
+                } else {
+                    console.log('Error checking setup (network/other):', err?.message || err)
+                    // Assume setup is done, let login page handle auth
+                    setNeedsSetup(false)
+                }
             } finally {
                 setCheckingSetup(false)
             }
