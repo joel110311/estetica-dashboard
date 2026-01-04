@@ -151,9 +151,9 @@ function isSameDay(date1, date2) {
 }
 
 function isInWeek(date, weekStart) {
-    // Only count Monday to Friday (workdays)
+    // Count full week (Monday to Sunday)
     const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekEnd.getDate() + 5); // Monday + 5 days = Saturday (exclusive)
+    weekEnd.setDate(weekEnd.getDate() + 7); // Monday + 7 days = next Monday (exclusive)
     return date >= weekStart && date < weekEnd;
 }
 
@@ -291,12 +291,12 @@ function processAppointmentsToStats(appointments) {
         .slice(0, 5)
         .map((client, index) => ({ id: index + 1, ...client }));
 
-    // Weekly breakdown (Monday to Friday of current week - workdays only)
+    // Weekly breakdown (Monday to Sunday - full week)
     const resumenSemanal = [];
     const currentWeekMonday = getStartOfWeek(new Date()); // Gets Monday
 
-    // Loop through Monday (0) to Friday (4) - 5 workdays
-    for (let i = 0; i < 5; i++) {
+    // Loop through Monday (0) to Sunday (6) - 7 days
+    for (let i = 0; i < 7; i++) {
         const day = new Date(currentWeekMonday);
         day.setDate(currentWeekMonday.getDate() + i);
         const dayStart = getStartOfDay(day);
